@@ -71,7 +71,7 @@ export default function Logar() {
           </TouchableOpacity>
         )}
 
-        <Link href="/home" asChild>
+        <Link href="/" asChild>
           <TouchableOpacity
             activeOpacity={0.7}
             className="h-14 w-72 flex-row items-center justify-center rounded-3xl"

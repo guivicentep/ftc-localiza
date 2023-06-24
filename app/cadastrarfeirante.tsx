@@ -18,14 +18,17 @@ import { addDoc, collection } from 'firebase/firestore'
 export default function RegisterMarket() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const addCase = async () => {
+  const [name, setName] = useState('')
+  const [category, setCategory] = useState('')
+  const [cnpj, setCnpj] = useState('')
+  const addMerchant = async () => {
     setLoading(true)
     try {
-      await addDoc(collection(FIREBASE_DB, 'cases'), {
+      await addDoc(collection(FIREBASE_DB, 'db_localiza'), {
         id: uuid.v4(),
-        // description,
-        // ongname,
-        // value: amount,
+        name,
+        category,
+        cnpj,
       })
       router.push('/home')
     } catch (error) {
@@ -46,16 +49,22 @@ export default function RegisterMarket() {
           </Text>
           <TextInput
             className="h-10 w-64 rounded-2xl border border-gray-50 bg-gray-50 px-5 py-1 font-body text-base"
-            placeholder="Usuário"
-            // value={}
-            // onChangeText={}
+            placeholder="Nome do estabelecimento"
+            value={name}
+            onChangeText={setName}
           />
           <TextInput
             className="mb-3 h-10 w-64 justify-center rounded-2xl border border-gray-50 bg-gray-50 px-5 pt-1 font-body text-base"
-            placeholder="Senha"
-            secureTextEntry={true}
-            // value={password}
-            // onChangeText={setPassword}
+            placeholder="Categoria"
+            value={category}
+            onChangeText={setCategory}
+          />
+          <TextInput
+            className="mb-3 h-10 w-64 justify-center rounded-2xl border border-gray-50 bg-gray-50 px-5 pt-1 font-body text-base"
+            placeholder="CNPJ"
+            keyboardType="numeric"
+            value={cnpj}
+            onChangeText={setCnpj}
           />
         </View>
         {loading ? (
@@ -64,7 +73,7 @@ export default function RegisterMarket() {
           <TouchableOpacity
             activeOpacity={0.7}
             className="h-10 w-44 items-center justify-center rounded-2xl bg-red-50 px-5 py-2"
-            // onPress={signUp}
+            onPress={addMerchant}
           >
             <Text className="font-title text-sm text-white-100 ">
               Cadastrar
